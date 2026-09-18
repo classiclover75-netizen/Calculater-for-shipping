@@ -9,6 +9,7 @@ export interface Part1State {
   items: string;
   weight: string;
   price: string;
+  priceCurrency: 'GBP' | 'RMB';
   rateSea: string;
   rateTruck: string;
   rateAir: string;

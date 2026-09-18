@@ -39,13 +39,35 @@ export function Part1({ currency, state, derived, actions }: Props) {
       <CurrencyConverter currency={currency} onChange={actions.updateCurrency} />
 
       <div className="bg-orange-50 border-2 border-dashed border-orange-400 p-2.5 rounded-lg text-center mb-4">
-        <span className="text-[12px] text-orange-900 block mb-0.5 font-bold">Paste Excel Row: (Qty | Weight | Price GBP)</span>
+        <span className="text-[12px] text-orange-900 block mb-0.5 font-bold">Paste Excel Row: (Qty | Weight | Price)</span>
         <textarea
           value={pasteText}
           onChange={handlePasteChange}
           placeholder="Paste here (Order: Qty, Weight, Price)"
           className="w-full h-10 border-none bg-transparent resize-none text-center text-[13px] text-gray-800 font-mono pt-1 outline-none focus:ring-0"
         />
+        <div className="flex justify-center gap-4 mt-1">
+          <label className="flex items-center gap-1 text-[12px] font-bold text-orange-900 cursor-pointer">
+            <input
+              type="radio"
+              name="priceCurrency"
+              checked={state.priceCurrency === 'GBP'}
+              onChange={() => actions.updatePart1('priceCurrency', 'GBP')}
+              className="w-3.5 h-3.5 cursor-pointer"
+            />
+            Price is GBP
+          </label>
+          <label className="flex items-center gap-1 text-[12px] font-bold text-orange-900 cursor-pointer">
+            <input
+              type="radio"
+              name="priceCurrency"
+              checked={state.priceCurrency === 'RMB'}
+              onChange={() => actions.updatePart1('priceCurrency', 'RMB')}
+              className="w-3.5 h-3.5 cursor-pointer"
+            />
+            Price is RMB
+          </label>
+        </div>
       </div>
 
       <div className="bg-gray-50 p-2.5 border-l-4 border-orange-500 font-bold text-gray-800 mb-4 rounded text-center">

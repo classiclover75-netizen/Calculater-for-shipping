@@ -5,7 +5,7 @@ export function useCalculator() {
   const [currency, setCurrency] = useState<CurrencyState>({ cny: '', rate: '' });
   
   const [part1, setPart1] = useState<Part1State>({
-    items: '', weight: '', price: '',
+    items: '', weight: '', price: '', priceCurrency: 'GBP',
     rateSea: '1.66', rateTruck: '2.77', rateAir: '5.44',
     activeSea: true, activeTruck: true, activeAir: true,
   });
@@ -91,14 +91,20 @@ export function useCalculator() {
     const cleanText = text.replace(/[^0-9.\s]/g, '');
     const values = cleanText.trim().split(/[\s]+/);
     if (values.length > 0 && values[0] !== '') {
+      const pastedPrice = values[2];
+      const isRmb = part1.priceCurrency === 'RMB';
+      const rate = parseFloat(currency.rate) || 1;
+      const gbpPrice = pastedPrice !== undefined && isRmb
+        ? ((parseFloat(pastedPrice) || 0) / rate).toFixed(4)
+        : pastedPrice;
       setPart1(prev => ({
         ...prev,
         items: values[0] !== undefined ? values[0] : prev.items,
         weight: values[1] !== undefined ? values[1] : prev.weight,
-        price: values[2] !== undefined ? values[2] : prev.price,
+        price: gbpPrice !== undefined ? gbpPrice : prev.price,
       }));
-      if (values[2] !== undefined) {
-        setCurrency(c => ({ ...c, cny: '' }));
+      if (pastedPrice !== undefined) {
+        setCurrency(c => ({ ...c, cny: isRmb ? pastedPrice : '' }));
       }
     }
   };
@@ -121,7 +127,7 @@ export function useCalculator() {
     setCurrency({ cny: '', rate: '' });
     setPart1(prev => ({
       ...prev,
-      items: '', weight: '', price: '',
+      items: '', weight: '', price: '', priceCurrency: 'GBP',
       rateSea: '1.66', rateTruck: '2.77', rateAir: '5.44',
       activeSea: true, activeTruck: true, activeAir: true,
     }));
