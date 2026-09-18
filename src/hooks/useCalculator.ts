@@ -5,7 +5,7 @@ export function useCalculator() {
   const [currency, setCurrency] = useState<CurrencyState>({ cny: '', rate: '' });
   
   const [part1, setPart1] = useState<Part1State>({
-    items: '', weight: '', price: '', priceCurrency: 'GBP',
+    items: '', weight: '', price: '', priceCurrency: 'RMB',
     rateSea: '1.66', rateTruck: '2.77', rateAir: '5.44',
     activeSea: true, activeTruck: true, activeAir: true,
   });
@@ -127,7 +127,7 @@ export function useCalculator() {
     setCurrency({ cny: '', rate: '' });
     setPart1(prev => ({
       ...prev,
-      items: '', weight: '', price: '', priceCurrency: 'GBP',
+      items: '', weight: '', price: '', priceCurrency: 'RMB',
       rateSea: '1.66', rateTruck: '2.77', rateAir: '5.44',
       activeSea: true, activeTruck: true, activeAir: true,
     }));
